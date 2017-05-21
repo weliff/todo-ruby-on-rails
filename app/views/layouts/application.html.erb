@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TodoRubyOnRails</title>
-    <%= csrf_meta_tags %>
+
+<head>
+  <title>TodoRubyOnRails</title>
+  <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <div class="container-fluid">
+    <nav class='navbar navbar-light bg-faded'>
+      <%= link_to 'Gerenciador de tarefas', root_path, class: 'navbar-brand' %>
+
+        <ul class='nav navbar-nav'>
+          <li class='nav-item'>
+            <%= link_to 'Nova tarefa', new_task_path, class: 'nav-link' %>
+          </li>
+
+          <li class='nav-item'>
+            <%= link_to 'Exportar CSV', tasks_path(format: :csv), class: 'nav-link' %>
+          </li>
+        </ul>
+    </nav>
+    <div class='row'>
+      <div class='col-sm-12'>
+        <%= yield %>
+      </div>
+  </div>
+</body>
+
 </html>

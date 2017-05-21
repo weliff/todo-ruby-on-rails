@@ -1,25 +1,36 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Detalhes</th>
-            <th>Prazo</th>
-            <th>Categoria</th>
-            <th>Criado em</th>
-            <th>Atualizado em</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% @tasks.each do |task| %>
+<% {'Pendentes' => @tasks_done, 'Finalizadas' => @tasks_pedding}.each do |nome, tasks| %>
+    <h2><%= nome %></h2>
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td><%= task.name %></td>
-                <td><%= task.details %></td>
-                <td><%= task.due_date %></td>
-                <td><%= task.category.name %></td>
-                <td><%= l task.created_at, format: :short %></td>
-                <td><%= l task.updated_at, format: :short %></td>
+                <th>Feito</th>
+                <th>Nome</th>
+                <th>Detalhes</th>
+                <th>Prazo</th>
+                <th>Categoria</th>
+                <th>Criado em</th>
+                <th>Atualizado em</th>
+                <th></th>
             </tr>
-        <%end%>
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            <% tasks.each do |task| %>
+                <tr>
+                    <td><%= task.done? ? 'Sim' : 'Não' %></td>
+                    <td><%= task.name %></td>
+                    <td><%= task.details %></td>
+                    <td><%= task.due_date %></td>
+                    <td><%= task.category.name %></td>
+                    <td><%= l task.created_at, format: :short %></td>
+                    <td><%= l task.updated_at, format: :short %></td>
+                    <td>
+                        <%= link_to 'Editar', edit_task_path(task)%>
+                        <%= link_to 'Apagar', task_path(task), method: 'DELETE', data: {confirm: 'Voce tem certeza?'} %>
+                    </td>
+                </tr>
+            <%end%>
+        </tbody>
+    </table>
+
+<% end %>
